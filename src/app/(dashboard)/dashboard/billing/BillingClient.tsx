@@ -77,7 +77,7 @@ export default function BillingClient({ plans }: { plans: Plan[] }) {
         }
       },
       prefill: {},
-      theme: { color: '#4f46e5' },
+      theme: { color: '#0c5739' },
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,36 +87,31 @@ export default function BillingClient({ plans }: { plans: Plan[] }) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       {plans.filter(p => p.slug !== 'free').map(plan => (
-        <div key={plan.id} className="bg-white border border-gray-100 rounded-xl p-5 flex flex-col">
-          <div className="flex items-start justify-between mb-3">
+        <div key={plan.id} className={`card flex flex-col p-6 ${plan.interval === 'yearly' ? 'ring-1 ring-gold/40' : ''}`}>
+          <div className="mb-4 flex items-start justify-between">
             <div>
-              <p className="font-semibold text-gray-900">{plan.name}</p>
-              <p className="text-xs text-gray-400 capitalize">{plan.interval}</p>
+              <p className="font-display text-lg font-semibold text-ink">{plan.name}</p>
+              <p className="font-mono text-xs uppercase tracking-wide text-faint">{plan.interval}</p>
             </div>
             <div className="text-right">
-              <p className="text-xl font-bold text-indigo-600">{formatInr(plan.price_inr_paise)}</p>
-              <p className="text-xs text-gray-400">/{plan.interval === 'yearly' ? 'yr' : 'mo'}</p>
+              <p className="font-display text-2xl font-semibold text-brand">{formatInr(plan.price_inr_paise)}</p>
+              <p className="font-mono text-xs text-faint">/{plan.interval === 'yearly' ? 'yr' : 'mo'}</p>
             </div>
           </div>
 
-          <ul className="space-y-1.5 mb-5 flex-1">
-            <li className="text-xs text-gray-600 flex items-center gap-1.5">
-              <span className="text-green-500">✓</span> Unlimited invoices
-            </li>
-            <li className="text-xs text-gray-600 flex items-center gap-1.5">
-              <span className="text-green-500">✓</span> No watermark on PDFs
-            </li>
-            <li className="text-xs text-gray-600 flex items-center gap-1.5">
-              <span className="text-green-500">✓</span> UPI payment links
-            </li>
-            <li className="text-xs text-gray-600 flex items-center gap-1.5">
-              <span className="text-green-500">✓</span> Email invoices to clients
-            </li>
+          <ul className="mb-6 flex-1 space-y-2">
+            {['Unlimited invoices', 'No watermark on PDFs', 'UPI payment links', 'Email invoices to clients'].map((f) => (
+              <li key={f} className="flex items-center gap-2 text-sm text-muted">
+                <svg className="h-4 w-4 shrink-0 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                {f}
+              </li>
+            ))}
             {plan.interval === 'yearly' && (
-              <li className="text-xs text-indigo-600 flex items-center gap-1.5 font-medium">
-                <span>🎉</span> Save ₹1,090 vs monthly
+              <li className="flex items-center gap-2 text-sm font-semibold text-gold">
+                <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                Save ₹1,090 vs monthly
               </li>
             )}
           </ul>
@@ -124,7 +119,7 @@ export default function BillingClient({ plans }: { plans: Plan[] }) {
           <button
             onClick={() => handleUpgrade(plan.id)}
             disabled={loading === plan.id}
-            className="w-full py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+            className="btn-primary w-full py-2.5"
           >
             {loading === plan.id ? 'Opening payment…' : `Upgrade to ${plan.name}`}
           </button>
@@ -132,7 +127,7 @@ export default function BillingClient({ plans }: { plans: Plan[] }) {
       ))}
 
       {error && (
-        <div className="col-span-full text-sm text-red-500 bg-red-50 border border-red-100 rounded-lg px-4 py-2">
+        <div className="col-span-full rounded-xl border border-overdue/20 bg-danger-soft px-4 py-2.5 text-sm text-danger">
           {error}
         </div>
       )}

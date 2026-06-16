@@ -4,10 +4,10 @@ import Link from 'next/link'
 import InvoiceActions from '@/components/invoice/InvoiceActions'
 
 const statusColors: Record<string, string> = {
-  paid: 'bg-green-50 text-green-700',
-  unpaid: 'bg-yellow-50 text-yellow-700',
-  overdue: 'bg-red-50 text-red-700',
-  draft: 'bg-gray-50 text-gray-600',
+  paid: 'bg-paid-soft text-paid',
+  unpaid: 'bg-unpaid-soft text-unpaid',
+  overdue: 'bg-overdue-soft text-overdue',
+  draft: 'bg-paper-deep text-muted',
 }
 
 export default async function DashboardPage() {
@@ -21,82 +21,81 @@ export default async function DashboardPage() {
   const paidCount = invoices.filter((inv) => inv.status === 'paid').length
 
   return (
-    <div>
-      <div className="mb-6">
-        <h1 className="text-xl font-semibold text-gray-900">Invoices</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage your GST invoices</p>
+    <div className="reveal">
+      <div className="mb-7 flex items-end justify-between">
+        <div>
+          <p className="kicker mb-2">Your ledger</p>
+          <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">Invoices</h1>
+        </div>
+        <Link href="/dashboard/invoices/new" className="btn-primary hidden sm:inline-flex">
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>
+          New Invoice
+        </Link>
       </div>
 
       {/* Stats */}
       {invoices.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div className="mb-7 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
           {[
-            { label: 'Total', value: invoices.length.toString() },
-            { label: 'Paid', value: paidCount.toString() },
-            { label: 'Unpaid', value: unpaidCount.toString() },
-            { label: 'Earned', value: formatInr(totalEarned) },
+            { label: 'Total', value: invoices.length.toString(), accent: false },
+            { label: 'Paid', value: paidCount.toString(), accent: false },
+            { label: 'Unpaid', value: unpaidCount.toString(), accent: false },
+            { label: 'Earned', value: formatInr(totalEarned), accent: true },
           ].map((stat) => (
-            <div key={stat.label} className="bg-white border border-gray-100 rounded-xl p-4">
-              <p className="text-xs text-gray-500 mb-1">{stat.label}</p>
-              <p className="text-lg font-semibold text-gray-900">{stat.value}</p>
+            <div key={stat.label} className="bg-surface px-5 py-4">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-faint">{stat.label}</p>
+              <p className={`mt-1.5 font-display text-2xl font-semibold tabular-nums ${stat.accent ? 'text-brand' : 'text-ink'}`}>{stat.value}</p>
             </div>
           ))}
         </div>
       )}
 
       {invoices.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-24 text-center">
-          <div className="w-14 h-14 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
-            <svg className="w-7 h-7 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="card flex flex-col items-center justify-center px-6 py-20 text-center">
+          <div className="mb-5 grid h-16 w-16 place-items-center rounded-2xl bg-brand-soft">
+            <svg className="h-8 w-8 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h2 className="text-sm font-medium text-gray-900 mb-1">No invoices yet</h2>
-          <p className="text-sm text-gray-400 mb-5">Create your first GST invoice in 60 seconds</p>
-          <Link
-            href="/dashboard/invoices/new"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
+          <h2 className="font-display text-xl font-semibold text-ink">No invoices yet</h2>
+          <p className="mt-1 mb-6 text-sm text-muted">Create your first GST invoice in 60 seconds.</p>
+          <Link href="/dashboard/invoices/new" className="btn-primary">
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>
             Create invoice
           </Link>
         </div>
       ) : (
-        <div className="bg-white border border-gray-100 rounded-xl overflow-hidden">
+        <div className="card overflow-hidden p-0">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Invoice #</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Client</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500 hidden sm:table-cell">Date</th>
-                <th className="text-right px-4 py-3 text-xs font-medium text-gray-500">Amount</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Status</th>
-                <th className="px-4 py-3"></th>
+              <tr className="border-b border-line bg-cream/50">
+                <th className="px-5 py-3 text-left font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">Invoice #</th>
+                <th className="px-5 py-3 text-left font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">Client</th>
+                <th className="hidden px-5 py-3 text-left font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint sm:table-cell">Date</th>
+                <th className="px-5 py-3 text-right font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">Amount</th>
+                <th className="px-5 py-3 text-left font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">Status</th>
+                <th className="px-5 py-3"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-line">
               {invoices.map((invoice) => (
-                <tr key={invoice.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 font-mono text-xs text-gray-600">
-                    <Link href={`/dashboard/invoices/${invoice.id}`} className="hover:text-indigo-600">
+                <tr key={invoice.id} className="transition-colors hover:bg-cream/60">
+                  <td className="px-5 py-3.5">
+                    <Link href={`/dashboard/invoices/${invoice.id}`} className="font-mono text-xs text-muted transition-colors hover:text-brand">
                       {invoice.invoice_number}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 font-medium text-gray-900">{invoice.client_name}</td>
-                  <td className="px-4 py-3 text-gray-500 hidden sm:table-cell">
+                  <td className="px-5 py-3.5 font-medium text-ink">{invoice.client_name}</td>
+                  <td className="hidden px-5 py-3.5 text-muted sm:table-cell">
                     {new Date(invoice.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </td>
-                  <td className="px-4 py-3 text-right font-medium text-gray-900">
+                  <td className="px-5 py-3.5 text-right font-mono font-medium tabular-nums text-ink">
                     {formatInr(invoice.total_paise)}
                   </td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium capitalize ${statusColors[invoice.status]}`}>
-                      {invoice.status}
-                    </span>
+                  <td className="px-5 py-3.5">
+                    <span className={`badge ${statusColors[invoice.status]}`}>{invoice.status}</span>
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-5 py-3.5">
                     <InvoiceActions invoice={invoice} />
                   </td>
                 </tr>

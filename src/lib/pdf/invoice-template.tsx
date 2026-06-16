@@ -38,22 +38,38 @@ const styles = StyleSheet.create({
   notesLabel: { fontSize: 8, color: '#888', marginBottom: 3 },
   notesValue: { fontSize: 9, color: '#555' },
   footer: { position: 'absolute', bottom: 24, left: 40, right: 40, textAlign: 'center', fontSize: 8, color: '#aaa' },
+  watermark: {
+    position: 'absolute',
+    top: '42%',
+    left: 0,
+    right: 0,
+    textAlign: 'center',
+    transform: 'rotate(-45deg)',
+    fontSize: 96,
+    fontFamily: 'Helvetica-Bold',
+    color: '#4f46e5',
+    opacity: 0.08,
+  },
 })
 
 function formatInr(paise: number) {
   return '₹' + (paise / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 }
 
-export function InvoicePDF({ invoice, businessName, upiId }: {
+export function InvoicePDF({ invoice, businessName, upiId, showWatermark = false }: {
   invoice: Invoice
   businessName?: string | null
   upiId?: string | null
+  showWatermark?: boolean
 }) {
   const date = new Date(invoice.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        {/* Free-plan watermark — rendered first so page content paints on top */}
+        {showWatermark && <Text style={styles.watermark} fixed>QuickBill</Text>}
+
         {/* Header */}
         <View style={styles.header}>
           <View>

@@ -5,9 +5,10 @@ export default async function SettingsPage() {
   const profile = await getUserProfile()
 
   return (
-    <div className="max-w-xl">
-      <h1 className="text-xl font-semibold text-gray-900 mb-1">Settings</h1>
-      <p className="text-sm text-gray-500 mb-8">Your business profile used on all invoices.</p>
+    <div className="reveal max-w-xl">
+      <p className="kicker mb-2">Your business</p>
+      <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">Settings</h1>
+      <p className="mt-1 mb-8 text-sm text-muted">Your business profile, used on every invoice.</p>
       <SettingsForm profile={profile} />
     </div>
   )

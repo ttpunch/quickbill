@@ -46,40 +46,41 @@ export default function Sidebar({ userEmail }: { userEmail: string }) {
   }
 
   return (
-    <aside className="w-60 bg-white border-r border-gray-100 flex flex-col">
+    <aside className="flex w-64 flex-col border-r border-line bg-surface">
       {/* Logo */}
-      <div className="px-5 py-5 border-b border-gray-100">
-        <span className="text-lg font-semibold text-indigo-600">QuickBill</span>
-        <p className="text-xs text-gray-400 mt-0.5">GST Invoice Generator</p>
+      <div className="border-b border-line px-5 py-5">
+        <span className="inline-flex items-center gap-2">
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand font-display text-lg leading-none text-cream">Q</span>
+          <span className="font-display text-lg font-semibold tracking-tight text-ink">QuickBill</span>
+        </span>
+        <p className="mt-1.5 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-faint">GST Invoicing</p>
       </div>
 
       {/* New Invoice button */}
       <div className="px-4 py-4">
-        <Link
-          href="/dashboard/invoices/new"
-          className="flex items-center justify-center gap-2 w-full py-2 px-3 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        <Link href="/dashboard/invoices/new" className="btn-primary w-full py-2.5">
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
           </svg>
           New Invoice
         </Link>
       </div>
 
       {/* Nav links */}
-      <nav className="flex-1 px-3 space-y-1">
+      <nav className="flex-1 space-y-1 px-3">
         {navLinks.map((link) => {
           const isActive = pathname === link.href
           return (
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
                 isActive
-                  ? 'bg-indigo-50 text-indigo-600 font-medium'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-brand-soft font-semibold text-brand'
+                  : 'text-muted hover:bg-cream hover:text-ink'
               }`}
             >
+              {isActive && <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-gold" />}
               {link.icon}
               {link.label}
             </Link>
@@ -88,13 +89,13 @@ export default function Sidebar({ userEmail }: { userEmail: string }) {
       </nav>
 
       {/* User + sign out */}
-      <div className="px-4 py-4 border-t border-gray-100">
-        <p className="text-xs text-gray-400 truncate mb-3">{userEmail}</p>
+      <div className="border-t border-line px-4 py-4">
+        <p className="mb-3 truncate font-mono text-xs text-faint">{userEmail}</p>
         <button
           onClick={handleSignOut}
-          className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors"
+          className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition-colors hover:bg-danger-soft hover:text-danger"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
           Sign out

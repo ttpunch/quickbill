@@ -31,67 +31,71 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+    <div className="relative flex min-h-screen items-center justify-center px-6">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        style={{ backgroundImage: 'linear-gradient(var(--color-line) 1px, transparent 1px)', backgroundSize: '100% 2.4rem', maskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 70%)' }}
+      />
+      <div className="reveal relative w-full max-w-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-semibold text-gray-900">QuickBill</h1>
-          <p className="text-sm text-gray-500 mt-1">GST invoices for Indian freelancers</p>
+          <span className="grid mx-auto h-12 w-12 place-items-center rounded-2xl bg-brand font-display text-2xl leading-none text-cream">Q</span>
+          <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink">QuickBill</h1>
+          <p className="mt-1 text-sm text-muted">GST invoices for Indian freelancers</p>
         </div>
 
-        {sent ? (
-          <div className="text-center">
-            <div className="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+        <div className="card p-8">
+          {sent ? (
+            <div className="text-center">
+              <div className="mx-auto mb-4 grid h-12 w-12 place-items-center rounded-full bg-paid-soft">
+                <svg className="h-6 w-6 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p className="font-display text-lg font-semibold text-ink">Check your email</p>
+              <p className="mt-1 text-sm text-muted">
+                We sent a magic link to <span className="font-medium text-ink">{email}</span>
+              </p>
+              <button
+                onClick={() => setSent(false)}
+                className="mt-5 text-sm font-medium text-brand transition-colors hover:text-brand-700"
+              >
+                Use a different email
+              </button>
             </div>
-            <p className="text-sm font-medium text-gray-900">Check your email</p>
-            <p className="text-sm text-gray-500 mt-1">
-              We sent a magic link to <span className="font-medium">{email}</span>
-            </p>
-            <button
-              onClick={() => setSent(false)}
-              className="mt-4 text-sm text-indigo-600 hover:text-indigo-500"
-            >
-              Use a different email
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email address
-              </label>
-              <input
-                id="email"
-                type="email"
-                required
-                autoComplete="email"
-                suppressHydrationWarning
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              />
-            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="email" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted">
+                  Email address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  suppressHydrationWarning
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="field"
+                />
+              </div>
 
-            {error && (
-              <p className="text-sm text-red-600">{error}</p>
-            )}
+              {error && (
+                <p className="rounded-lg bg-danger-soft px-3 py-2 text-sm text-danger">{error}</p>
+              )}
 
-            <button
-              type="submit"
-              disabled={loading || !email}
-              className="w-full py-2 px-4 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {loading ? 'Sending...' : 'Send magic link'}
-            </button>
+              <button type="submit" disabled={loading || !email} className="btn-primary w-full py-2.5">
+                {loading ? 'Sending…' : 'Send magic link'}
+              </button>
 
-            <p className="text-xs text-center text-gray-400">
-              No password needed. We&apos;ll email you a sign-in link.
-            </p>
-          </form>
-        )}
+              <p className="text-center font-mono text-xs text-faint">
+                No password needed — we&apos;ll email you a sign-in link.
+              </p>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   )

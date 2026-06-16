@@ -25,25 +25,25 @@ export default function SendEmailButton({ invoiceId, clientEmail }: { invoiceId:
       <button
         onClick={handleSend}
         disabled={status === 'sending' || status === 'sent'}
-        className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 transition-colors"
+        className="btn-ghost disabled:opacity-50"
       >
         {status === 'sent' ? (
           <>
-            <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg className="h-4 w-4 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
             </svg>
-            Email Sent
+            Email sent
           </>
         ) : (
           <>
-            <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-4 w-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            {status === 'sending' ? 'Sending…' : 'Email to Client'}
+            {status === 'sending' ? 'Sending…' : 'Email to client'}
           </>
         )}
       </button>
-      {status === 'error' && <p className="text-xs text-red-500 mt-1">{errorMsg}</p>}
+      {status === 'error' && <p className="mt-1 text-xs text-danger">{errorMsg}</p>}
     </div>
   )
 }
