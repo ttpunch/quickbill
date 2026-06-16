@@ -1,6 +1,49 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { SITE, FAQS } from '@/lib/site'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
+      name: SITE.name,
+      url: SITE.url,
+      description: SITE.description,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE.url}/#website`,
+      url: SITE.url,
+      name: SITE.name,
+      inLanguage: 'en-IN',
+      publisher: { '@id': `${SITE.url}/#organization` },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: SITE.name,
+      applicationCategory: 'FinanceApplication',
+      operatingSystem: 'Web',
+      url: SITE.url,
+      description: SITE.description,
+      offers: [
+        { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Pro Monthly', price: '299', priceCurrency: 'INR' },
+        { '@type': 'Offer', name: 'Pro Annual', price: '2499', priceCurrency: 'INR' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+}
 
 const features = [
   { title: 'GST-compliant PDFs', desc: 'Auto-calculates CGST + SGST. Clean, professional PDFs carrying your business name, GSTIN, and logo.' },
@@ -39,6 +82,8 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       {/* Nav */}
       <nav className="sticky top-0 z-30 border-b border-line bg-paper/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
