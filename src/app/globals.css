@@ -1,26 +1,234 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   QuickBill — "Modern Ledger"
+   Editorial fintech: parchment canvas, emerald + marigold,
+   Fraunces / Hanken Grotesk / IBM Plex Mono.
+   ============================================================ */
+
+@theme {
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Surfaces */
+  --color-paper: #f3eee2;
+  --color-paper-deep: #ece5d4;
+  --color-surface: #fdfbf6;
+  --color-cream: #f6f1e6;
+
+  /* Ink */
+  --color-ink: #1a221d;
+  --color-muted: #586057;
+  --color-faint: #8c948a;
+
+  /* Hairlines */
+  --color-line: #e6dfcd;
+  --color-line-strong: #d7ceb7;
+
+  /* Brand — emerald */
+  --color-brand: #0c5739;
+  --color-brand-600: #0f6a46;
+  --color-brand-700: #094129;
+  --color-brand-soft: #e0ebe1;
+
+  /* Accent — marigold gold */
+  --color-gold: #b9810c;
+  --color-gold-bright: #d99a10;
+  --color-gold-soft: #f4ebcd;
+
+  /* Status */
+  --color-paid: #0c5739;
+  --color-paid-soft: #e0ebe1;
+  --color-unpaid: #92660a;
+  --color-unpaid-soft: #f4ebcd;
+  --color-overdue: #ad3a1c;
+  --color-overdue-soft: #f5ddd2;
+  --color-danger: #ad3a1c;
+  --color-danger-soft: #f5ddd2;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    /* Faint paper grain */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background-color: var(--color-brand-soft);
+    color: var(--color-brand-700);
+  }
+
+  /* Money & code-like values stay tabular and aligned */
+  .tnum,
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Refined scrollbar */
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-line-strong);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #c4b994;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Cards — warm hairline + soft layered shadow */
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 1.25rem;
+    box-shadow:
+      0 1px 2px rgba(26, 34, 29, 0.04),
+      0 18px 40px -28px rgba(26, 34, 29, 0.22);
+  }
+
+  /* Primary pill button */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background-color: var(--color-brand);
+    color: var(--color-cream);
+    padding: 0.65rem 1.4rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 8px 20px -12px rgba(12, 87, 57, 0.7);
+    transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-brand-700);
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 14px 26px -12px rgba(12, 87, 57, 0.8);
+  }
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Secondary / ghost pill */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-line-strong);
+    color: var(--color-ink);
+    padding: 0.65rem 1.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  }
+  .btn-ghost:hover {
+    background-color: var(--color-cream);
+    border-color: var(--color-gold);
+    transform: translateY(-1px);
+  }
+
+  /* Form fields */
+  .field {
+    width: 100%;
+    border-radius: 0.7rem;
+    border: 1px solid var(--color-line-strong);
+    background-color: #fffdf8;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+  }
+  .field::placeholder {
+    color: var(--color-faint);
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-brand);
+    box-shadow: 0 0 0 3px var(--color-brand-soft);
+  }
+
+  /* Status badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+  }
+
+  /* Eyebrow / kicker label */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* Staggered page-load reveal */
+  @keyframes ledger-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .reveal {
+    opacity: 0;
+    animation: ledger-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Hand-drawn marigold marker under a hero keyword */
+  .marker {
+    position: relative;
+    display: inline-block;
+    color: var(--color-brand);
+  }
+  .marker::after {
+    content: "";
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: 0.08em;
+    height: 0.32em;
+    background-color: var(--color-gold-soft);
+    border-radius: 999px;
+    z-index: -1;
+    transform: rotate(-0.6deg);
+  }
 }

@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { getUserSubscription } from '@/modules/billing/actions'
 import { InvoicePDF } from '@/lib/pdf/invoice-template'
 import { renderToBuffer } from '@react-pdf/renderer'
 import { NextResponse } from 'next/server'
@@ -27,10 +28,14 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
     .eq('id', user.id)
     .single()
 
+  // Free plan (no active subscription) gets a watermark; Pro does not.
+  const subscription = await getUserSubscription()
+
   const element = React.createElement(InvoicePDF, {
     invoice,
     businessName: userData?.business_name,
     upiId: userData?.upi_id,
+    showWatermark: !subscription,
   }) as unknown as React.ReactElement<import('@react-pdf/renderer').DocumentProps>
 
   const buffer = await renderToBuffer(element)
