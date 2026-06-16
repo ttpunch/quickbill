@@ -35,7 +35,7 @@ const navLinks = [
   },
 ]
 
-export default function Sidebar({ userEmail }: { userEmail: string }) {
+export default function Sidebar({ userEmail, isPro }: { userEmail: string; isPro: boolean }) {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -87,6 +87,23 @@ export default function Sidebar({ userEmail }: { userEmail: string }) {
           )
         })}
       </nav>
+
+      {/* Upgrade prompt — free users only */}
+      {!isPro && (
+        <div className="px-4 pb-2">
+          <div className="relative overflow-hidden rounded-2xl border border-gold/30 bg-gold-soft p-4">
+            <span aria-hidden className="pointer-events-none absolute -right-3 -top-3 font-display text-5xl text-gold/15">★</span>
+            <p className="font-display text-sm font-semibold text-ink">Upgrade to Pro</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted">Unlimited invoices, no watermark, UPI links & email.</p>
+            <Link
+              href="/dashboard/billing"
+              className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full bg-gold px-3 py-2 text-xs font-semibold text-cream transition-transform hover:-translate-y-0.5"
+            >
+              Upgrade · ₹299/mo
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* User + sign out */}
       <div className="border-t border-line px-4 py-4">
