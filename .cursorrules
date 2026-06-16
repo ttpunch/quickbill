@@ -1,0 +1,19 @@
+You are building QuickBill — GST invoice generator for Indian freelancers.
+
+Stack: Next.js 16 App Router, TypeScript strict, Supabase (Postgres + Auth), tRPC v11, Razorpay, @react-pdf/renderer, Tailwind v4, shadcn/ui.
+
+Rules:
+- Money = paise integers always. Never floats. ₹299 = 29900 paise
+- GST split: cgst = sgst = Math.floor(subtotal_paise * gst_rate / 100 / 2)
+- Verify Razorpay webhook HMAC SHA256 — never skip this
+- Log mutations to audit_logs (DPDP compliance)
+- Soft deletes only (deleted_at)
+- Free plan blocks invoice creation above 5/month — check server-side
+- Zod on all inputs, server and client
+- No 'any' type — use 'unknown' and narrow
+- Do not modify files outside scope of request
+
+When generating code:
+- Check similar files first and match the pattern
+- Handle errors explicitly — never let them fail silently
+- Include TypeScript types on all function signatures
