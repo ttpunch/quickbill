@@ -1,7 +1,7 @@
 // Single source of truth for canonical URL + marketing copy, shared by
 // metadata, sitemap, robots, and JSON-LD structured data.
 
-const rawUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://quickbill.in'
+const rawUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://quikbil.com'
 
 export const SITE = {
   url: rawUrl.replace(/\/$/, ''),

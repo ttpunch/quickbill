@@ -31,7 +31,7 @@ export async function sendInvoiceEmail(invoiceId: string) {
     .single()
 
   const { error } = await resend.emails.send({
-    from: process.env.RESEND_FROM_EMAIL ?? 'invoices@quickbill.in',
+    from: process.env.RESEND_FROM_EMAIL ?? 'invoices@quikbil.com',
     to: invoice.client_email,
     subject: `Invoice ${invoice.invoice_number} from ${userData?.business_name ?? 'QuickBill'}`,
     react: React.createElement(InvoiceEmail, {
@@ -78,7 +78,7 @@ export async function sendInvoiceReminder(invoiceId: string) {
     .single()
 
   const { error } = await resend.emails.send({
-    from: process.env.RESEND_FROM_EMAIL ?? 'invoices@quickbill.in',
+    from: process.env.RESEND_FROM_EMAIL ?? 'invoices@quikbil.com',
     to: invoice.client_email,
     subject: `Reminder: Invoice ${invoice.invoice_number} from ${userData?.business_name ?? 'QuickBill'}`,
     react: React.createElement(InvoiceEmail, {

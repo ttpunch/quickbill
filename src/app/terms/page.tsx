@@ -56,7 +56,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="mb-2 font-display text-lg font-semibold text-ink">7. Contact</h2>
-            <p>Questions: <a href="mailto:hello@quickbill.in" className="font-medium text-brand hover:text-brand-700">hello@quickbill.in</a></p>
+            <p>Questions: <a href="mailto:hello@quikbil.com" className="font-medium text-brand hover:text-brand-700">hello@quikbil.com</a></p>
           </section>
         </div>
       </main>

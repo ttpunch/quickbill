@@ -81,7 +81,7 @@ export function ReceiptPDF({ receipt }: { receipt: ReceiptData }) {
               </View>
               <Text style={styles.brandSub}>QuickBill Technologies</Text>
               <Text style={styles.brandSub}>GSTIN: 27AAAAA0000A1Z5</Text>
-              <Text style={styles.brandSub}>support@quickbill.in</Text>
+              <Text style={styles.brandSub}>support@quikbil.com</Text>
             </View>
             <View style={styles.metaRight}>
               <Text style={styles.metaLabel}>Receipt</Text>
@@ -140,7 +140,7 @@ export function ReceiptPDF({ receipt }: { receipt: ReceiptData }) {
         </View>
 
         <Text style={styles.footer} fixed>
-          This is a computer-generated receipt and does not require a signature. · QuickBill · quickbill.in
+          This is a computer-generated receipt and does not require a signature. · QuickBill · quikbil.com
         </Text>
       </Page>
     </Document>

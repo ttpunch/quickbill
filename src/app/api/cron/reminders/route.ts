@@ -73,7 +73,7 @@ export async function GET(req: Request) {
       .single()
 
     const { error: sendError } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? 'invoices@quickbill.in',
+      from: process.env.RESEND_FROM_EMAIL ?? 'invoices@quikbil.com',
       to: invoice.client_email as string,
       subject: `Reminder: Invoice ${invoice.invoice_number} from ${userData?.business_name ?? 'QuickBill'}`,
       react: React.createElement(InvoiceEmail, {

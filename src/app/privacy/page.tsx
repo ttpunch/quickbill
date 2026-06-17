@@ -41,7 +41,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-2 font-display text-lg font-semibold text-ink">4. DPDP Act Compliance</h2>
-            <p>QuickBill complies with the Digital Personal Data Protection Act 2023. You may request a copy of your data or request deletion by emailing privacy@quickbill.in.</p>
+            <p>QuickBill complies with the Digital Personal Data Protection Act 2023. You may request a copy of your data or request deletion by emailing privacy@quikbil.com.</p>
           </section>
 
           <section>
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-2 font-display text-lg font-semibold text-ink">6. Contact</h2>
-            <p>Privacy questions: <a href="mailto:privacy@quickbill.in" className="font-medium text-brand hover:text-brand-700">privacy@quickbill.in</a></p>
+            <p>Privacy questions: <a href="mailto:privacy@quikbil.com" className="font-medium text-brand hover:text-brand-700">privacy@quikbil.com</a></p>
           </section>
         </div>
       </main>
