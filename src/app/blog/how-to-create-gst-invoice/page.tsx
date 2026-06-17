@@ -18,7 +18,7 @@ export default function Page() {
 
       <div className="space-y-6 text-sm leading-relaxed text-muted">
         <p>
-          Creating a GST invoice doesn't require an accountant or expensive software. If you're a freelancer or small business owner in India, you can <strong className="text-ink">create a GST invoice in 60 seconds</strong> using QuikBil — and share it directly on WhatsApp to collect payment via UPI.
+          Creating a GST invoice doesn’t require an accountant or expensive software. If you’re a freelancer or small business owner in India, you can <strong className="text-ink">create a GST invoice in 60 seconds</strong> using QuikBil — and share it directly on WhatsApp to collect payment via UPI.
         </p>
         <p>
           This guide walks you through every step: what a GST invoice must contain, how to fill in the fields correctly, and how to send it to your client.
@@ -38,7 +38,7 @@ export default function Page() {
           <li><strong className="text-ink">Your business name, address, and GSTIN</strong> (15-digit GST Identification Number)</li>
           <li><strong className="text-ink">Invoice number</strong> — unique and sequential (e.g., INV-2026-001)</li>
           <li><strong className="text-ink">Invoice date</strong></li>
-          <li><strong className="text-ink">Client's name and address</strong> — and their GSTIN if they're registered</li>
+          <li><strong className="text-ink">Client’s name and address</strong> — and their GSTIN if they’re registered</li>
           <li><strong className="text-ink">Description of services</strong> — what you delivered</li>
           <li><strong className="text-ink">HSN/SAC code</strong> — the service accounting code for your service type</li>
           <li><strong className="text-ink">Taxable amount</strong> — your fee before GST</li>
@@ -100,7 +100,7 @@ export default function Page() {
           <li><strong className="text-ink">Wrong GST split:</strong> For clients in the same state, split GST as CGST + SGST (half each). For clients in a different state, charge IGST (full rate). QuikBil handles this automatically.</li>
           <li><strong className="text-ink">Missing invoice number:</strong> Invoice numbers must be sequential. Never reuse a number.</li>
           <li><strong className="text-ink">Rounding errors:</strong> GST must be calculated on the exact taxable value, not an approximation.</li>
-          <li><strong className="text-ink">Charging GST without registration:</strong> You can only charge GST if you're registered. If you're below the threshold, issue a regular invoice without GST.</li>
+          <li><strong className="text-ink">Charging GST without registration:</strong> You can only charge GST if you’re registered. If you’re below the threshold, issue a regular invoice without GST.</li>
         </ul>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Get paid faster with UPI</h2>

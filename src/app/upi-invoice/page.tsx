@@ -88,7 +88,7 @@ export default function Page() {
           </h2>
           <div className="space-y-5 text-sm leading-relaxed text-muted">
             <p>
-              A UPI invoice is a regular GST invoice that includes a <strong className="text-ink">UPI payment link</strong> — a clickable link that opens your client's UPI app with your payment details pre-filled. Instead of your client having to search for your UPI ID and enter the amount manually, they just tap a link.
+              A UPI invoice is a regular GST invoice that includes a <strong className="text-ink">UPI payment link</strong> — a clickable link that opens your client’s UPI app with your payment details pre-filled. Instead of your client having to search for your UPI ID and enter the amount manually, they just tap a link.
             </p>
             <p>
               The link follows this format:

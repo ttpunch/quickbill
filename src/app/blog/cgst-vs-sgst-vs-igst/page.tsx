@@ -56,12 +56,12 @@ export default function Page() {
           <strong className="text-ink">CGST (Central Goods and Services Tax)</strong> is the portion of GST collected by the Central Government. It applies on intra-state transactions — when you and your client are both in the same state. The rate is always half of the total GST rate.
         </p>
         <p>
-          Example: You're a freelancer in Maharashtra billing a client in Maharashtra at 18% GST. You charge <strong className="text-ink">9% CGST</strong> (goes to Central Government) + 9% SGST (goes to Maharashtra Government).
+          Example: You’re a freelancer in Maharashtra billing a client in Maharashtra at 18% GST. You charge <strong className="text-ink">9% CGST</strong> (goes to Central Government) + 9% SGST (goes to Maharashtra Government).
         </p>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">What is SGST?</h2>
         <p>
-          <strong className="text-ink">SGST (State Goods and Services Tax)</strong> is the state government's share of GST. It always applies alongside CGST for same-state transactions. The SGST rate equals the CGST rate.
+          <strong className="text-ink">SGST (State Goods and Services Tax)</strong> is the state government’s share of GST. It always applies alongside CGST for same-state transactions. The SGST rate equals the CGST rate.
         </p>
         <p>
           Each state has its own SGST Act (Maharashtra GST Act, Karnataka GST Act, etc.), but the rates are uniform across India.
@@ -69,7 +69,7 @@ export default function Page() {
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">What is IGST?</h2>
         <p>
-          <strong className="text-ink">IGST (Integrated Goods and Services Tax)</strong> applies on inter-state transactions — when you and your client are in different states. It's collected entirely by the Central Government and then shared with the destination state.
+          <strong className="text-ink">IGST (Integrated Goods and Services Tax)</strong> applies on inter-state transactions — when you and your client are in different states. It’s collected entirely by the Central Government and then shared with the destination state.
         </p>
         <p>
           The IGST rate equals the total GST rate (CGST + SGST combined). So 18% GST becomes 18% IGST — not 9+9.
@@ -108,12 +108,12 @@ export default function Page() {
           ))}
         </div>
 
-        <h2 className="font-display text-2xl font-semibold text-ink pt-4">How to determine "place of supply" for services</h2>
+        <h2 className="font-display text-2xl font-semibold text-ink pt-4">How to determine ”place of supply” for services</h2>
         <p>
-          For services, the <strong className="text-ink">place of supply</strong> is generally the location of the service recipient (your client). If your client is a registered business, use their GSTIN state. If they're an individual (unregistered), use the state where the service is actually performed or consumed.
+          For services, the <strong className="text-ink">place of supply</strong> is generally the location of the service recipient (your client). If your client is a registered business, use their GSTIN state. If they’re an individual (unregistered), use the state where the service is actually performed or consumed.
         </p>
         <p>
-          Special cases: for online services to individuals, the place of supply is the recipient's location. For services relating to immovable property, it's where the property is located.
+          Special cases: for online services to individuals, the place of supply is the recipient’s location. For services relating to immovable property, it’s where the property is located.
         </p>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Input Tax Credit (ITC) implications</h2>
@@ -123,17 +123,17 @@ export default function Page() {
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Exporting services to foreign clients</h2>
         <p>
-          If you invoice foreign clients (US, UK, Europe, etc.) for services, your supply is an <strong className="text-ink">export of services</strong> and is zero-rated. You don't charge GST. But you must:
+          If you invoice foreign clients (US, UK, Europe, etc.) for services, your supply is an <strong className="text-ink">export of services</strong> and is zero-rated. You don’t charge GST. But you must:
         </p>
         <ul className="list-disc pl-5 space-y-2">
           <li>File a <strong className="text-ink">Letter of Undertaking (LUT)</strong> on the GST portal each financial year</li>
           <li>Receive payment in foreign currency through banking channels</li>
-          <li>Mention "Export of Services under LUT — IGST NIL" on your invoice</li>
+          <li>Mention ”Export of Services under LUT — IGST NIL” on your invoice</li>
         </ul>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">QuikBil handles all of this automatically</h2>
         <p>
-          When you create an invoice on QuikBil, you select your client's state. QuikBil automatically applies CGST + SGST for same-state clients and IGST for inter-state clients — no manual calculation needed.
+          When you create an invoice on QuikBil, you select your client’s state. QuikBil automatically applies CGST + SGST for same-state clients and IGST for inter-state clients — no manual calculation needed.
         </p>
 
         <div className="card p-6 bg-brand text-cream mt-8">

@@ -24,10 +24,10 @@ export default async function DashboardLayout({
   const subscription = await getUserSubscription()
 
   return (
-    <div className="flex h-screen bg-paper">
+    <div className="flex h-screen flex-col bg-paper lg:flex-row">
       <Sidebar userEmail={user.email ?? ''} isPro={!!subscription} />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <main className="flex-1 overflow-y-auto px-6 py-8 sm:px-10">
+        <main className="flex-1 overflow-y-auto px-4 py-6 sm:px-10 sm:py-8">
           <div className="mx-auto max-w-4xl">
             {children}
           </div>

@@ -18,7 +18,7 @@ export default function Page() {
 
       <div className="space-y-6 text-sm leading-relaxed text-muted">
         <p>
-          Every freelancer in India who earns above ₹20 lakhs per year needs to issue a GST-compliant invoice. If you're looking for <strong className="text-ink">free GST invoice templates</strong>, this page covers what your template must include, common template formats, and the fastest way to generate one online.
+          Every freelancer in India who earns above ₹20 lakhs per year needs to issue a GST-compliant invoice. If you’re looking for <strong className="text-ink">free GST invoice templates</strong>, this page covers what your template must include, common template formats, and the fastest way to generate one online.
         </p>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">What a GST invoice template must include</h2>
@@ -89,9 +89,9 @@ export default function Page() {
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Why most Excel/Word templates fail</h2>
         <p>Free GST invoice templates in Word or Excel have critical problems:</p>
         <ul className="list-disc pl-5 space-y-2">
-          <li><strong className="text-ink">Manual GST calculation:</strong> You have to enter the CGST and SGST amounts yourself — one wrong formula and you're non-compliant</li>
-          <li><strong className="text-ink">No invoice numbering:</strong> Templates don't track your last invoice number — you must manually ensure sequential numbering</li>
-          <li><strong className="text-ink">Wrong CGST/IGST split:</strong> Templates don't know your client's state — you have to remember to use IGST for inter-state clients</li>
+          <li><strong className="text-ink">Manual GST calculation:</strong> You have to enter the CGST and SGST amounts yourself — one wrong formula and you’re non-compliant</li>
+          <li><strong className="text-ink">No invoice numbering:</strong> Templates don’t track your last invoice number — you must manually ensure sequential numbering</li>
+          <li><strong className="text-ink">Wrong CGST/IGST split:</strong> Templates don’t know your client’s state — you have to remember to use IGST for inter-state clients</li>
           <li><strong className="text-ink">No UPI payment link:</strong> You have to add your UPI ID separately and the client still has to type it manually</li>
           <li><strong className="text-ink">Hard to share:</strong> PDF export from Word/Excel often has formatting issues and large file sizes</li>
         </ul>
@@ -134,9 +134,9 @@ export default function Page() {
           Your first 5 invoices are completely free. No credit card, no account setup — just sign in with Google and start invoicing.
         </p>
 
-        <h2 className="font-display text-2xl font-semibold text-ink pt-4">What QuikBil includes that templates don't</h2>
+        <h2 className="font-display text-2xl font-semibold text-ink pt-4">What QuikBil includes that templates don’t</h2>
         <ul className="list-disc pl-5 space-y-2">
-          <li>Automatic CGST + SGST vs IGST split based on your client's state</li>
+          <li>Automatic CGST + SGST vs IGST split based on your client’s state</li>
           <li>Sequential invoice numbering with no gaps</li>
           <li>UPI payment link pre-filled with exact invoice amount</li>
           <li>WhatsApp share button to send the PDF in one tap</li>

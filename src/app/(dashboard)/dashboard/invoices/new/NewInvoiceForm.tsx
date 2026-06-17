@@ -148,8 +148,8 @@ export default function NewInvoiceForm({ clients }: { clients: Client[] }) {
         <div className="card p-6">
           <h2 className="mb-4 font-display text-base font-semibold text-ink">Items</h2>
           <div className="space-y-3">
-            {/* Header */}
-            <div className="grid grid-cols-12 gap-2 px-1 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">
+            {/* Header — hidden on mobile, where rows stack */}
+            <div className="hidden grid-cols-12 gap-2 px-1 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint sm:grid">
               <span className="col-span-6">Description</span>
               <span className="col-span-2">Qty</span>
               <span className="col-span-3">Rate (₹)</span>
@@ -159,17 +159,18 @@ export default function NewInvoiceForm({ clients }: { clients: Client[] }) {
             {items.map((item, i) => {
               const amt = Math.round((parseFloat(item.quantity) || 0) * Math.round((parseFloat(item.rate) || 0) * 100))
               return (
-                <div key={i} className="grid grid-cols-12 items-center gap-2">
-                  <input required value={item.description} onChange={(e) => updateItem(i, 'description', e.target.value)} placeholder="Web design services" className="field col-span-6" />
-                  <input required type="number" min="0.01" step="0.01" value={item.quantity} onChange={(e) => updateItem(i, 'quantity', e.target.value)} className="field col-span-2 font-mono" />
-                  <div className="relative col-span-3">
+                <div key={i} className="grid grid-cols-12 items-center gap-2 border-b border-line pb-3 sm:border-0 sm:pb-0">
+                  <input required value={item.description} onChange={(e) => updateItem(i, 'description', e.target.value)} placeholder="Web design services" className="field col-span-12 sm:col-span-6" />
+                  <input required type="number" min="0.01" step="0.01" aria-label="Quantity" value={item.quantity} onChange={(e) => updateItem(i, 'quantity', e.target.value)} className="field col-span-4 font-mono sm:col-span-2" />
+                  <div className="relative col-span-7 sm:col-span-3">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-faint">₹</span>
-                    <input required type="number" min="1" step="1" value={item.rate} onChange={(e) => updateItem(i, 'rate', e.target.value)} placeholder="5000" className="field pl-7 font-mono" />
+                    <input required type="number" min="1" step="1" aria-label="Rate" value={item.rate} onChange={(e) => updateItem(i, 'rate', e.target.value)} placeholder="5000" className="field pl-7 font-mono" />
                   </div>
                   <button
                     type="button"
                     onClick={() => removeItem(i)}
                     disabled={items.length === 1}
+                    aria-label="Remove item"
                     className="col-span-1 flex items-center justify-center text-faint transition-colors hover:text-danger disabled:opacity-20"
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -177,7 +178,7 @@ export default function NewInvoiceForm({ clients }: { clients: Client[] }) {
                     </svg>
                   </button>
                   {amt > 0 && (
-                    <div className="col-span-12 -mt-1 pr-7 text-right font-mono text-xs text-faint">
+                    <div className="col-span-12 -mt-1 text-right font-mono text-xs text-faint sm:pr-7">
                       = {formatInr(amt)}
                     </div>
                   )}

@@ -22,12 +22,12 @@ export default async function DashboardPage() {
 
   return (
     <div className="reveal">
-      <div className="mb-7 flex items-end justify-between">
+      <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="kicker mb-2">Your ledger</p>
-          <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">Invoices</h1>
+          <h1 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">Invoices</h1>
         </div>
-        <Link href="/dashboard/invoices/new" className="btn-primary hidden sm:inline-flex">
+        <Link href="/dashboard/invoices/new" className="btn-primary">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>
           New Invoice
         </Link>
@@ -65,8 +65,8 @@ export default async function DashboardPage() {
           </Link>
         </div>
       ) : (
-        <div className="card overflow-hidden p-0">
-          <table className="w-full text-sm">
+        <div className="card overflow-x-auto p-0">
+          <table className="w-full min-w-[34rem] text-sm">
             <thead>
               <tr className="border-b border-line bg-cream/50">
                 <th className="px-5 py-3 text-left font-mono text-[0.65rem] uppercase tracking-[0.14em] text-faint">Invoice #</th>

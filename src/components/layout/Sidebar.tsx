@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
 const navLinks = [
@@ -35,30 +36,34 @@ const navLinks = [
   },
 ]
 
-export default function Sidebar({ userEmail, isPro }: { userEmail: string; isPro: boolean }) {
-  const pathname = usePathname()
-  const router = useRouter()
-
-  async function handleSignOut() {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push('/login')
-  }
-
+function Logo() {
   return (
-    <aside className="flex w-64 flex-col border-r border-line bg-surface">
-      {/* Logo */}
-      <div className="border-b border-line px-5 py-5">
-        <span className="inline-flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand font-display text-lg leading-none text-cream">Q</span>
-          <span className="font-display text-lg font-semibold tracking-tight text-ink">QuickBill</span>
-        </span>
-        <p className="mt-1.5 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-faint">GST Invoicing</p>
-      </div>
+    <span className="inline-flex items-center gap-2">
+      <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand font-display text-lg leading-none text-cream">Q</span>
+      <span className="font-display text-lg font-semibold tracking-tight text-ink">QuickBill</span>
+    </span>
+  )
+}
 
+/** Shared inner content used by both the desktop sidebar and the mobile drawer. */
+function SidebarBody({
+  pathname,
+  isPro,
+  userEmail,
+  onNavigate,
+  onSignOut,
+}: {
+  pathname: string
+  isPro: boolean
+  userEmail: string
+  onNavigate: () => void
+  onSignOut: () => void
+}) {
+  return (
+    <>
       {/* New Invoice button */}
       <div className="px-4 py-4">
-        <Link href="/dashboard/invoices/new" className="btn-primary w-full py-2.5">
+        <Link href="/dashboard/invoices/new" onClick={onNavigate} className="btn-primary w-full py-2.5">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
           </svg>
@@ -74,6 +79,7 @@ export default function Sidebar({ userEmail, isPro }: { userEmail: string; isPro
             <Link
               key={link.href}
               href={link.href}
+              onClick={onNavigate}
               className={`relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
                 isActive
                   ? 'bg-brand-soft font-semibold text-brand'
@@ -97,6 +103,7 @@ export default function Sidebar({ userEmail, isPro }: { userEmail: string; isPro
             <p className="mt-1 text-xs leading-relaxed text-muted">Unlimited invoices, no watermark, UPI links & email.</p>
             <Link
               href="/dashboard/billing"
+              onClick={onNavigate}
               className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full bg-gold px-3 py-2 text-xs font-semibold text-cream transition-transform hover:-translate-y-0.5"
             >
               Upgrade · ₹299/mo
@@ -109,7 +116,7 @@ export default function Sidebar({ userEmail, isPro }: { userEmail: string; isPro
       <div className="border-t border-line px-4 py-4">
         <p className="mb-3 truncate font-mono text-xs text-faint">{userEmail}</p>
         <button
-          onClick={handleSignOut}
+          onClick={onSignOut}
           className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm text-muted transition-colors hover:bg-danger-soft hover:text-danger"
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -118,6 +125,100 @@ export default function Sidebar({ userEmail, isPro }: { userEmail: string; isPro
           Sign out
         </button>
       </div>
-    </aside>
+    </>
+  )
+}
+
+export default function Sidebar({ userEmail, isPro }: { userEmail: string; isPro: boolean }) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const [open, setOpen] = useState(false)
+
+  async function handleSignOut() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/login')
+  }
+
+  // Lock body scroll while the mobile drawer is open.
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  return (
+    <>
+      {/* Mobile top bar */}
+      <header className="flex items-center justify-between border-b border-line bg-surface px-4 py-3 lg:hidden">
+        <Link href="/dashboard" aria-label="Dashboard">
+          <Logo />
+        </Link>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
+          className="grid h-10 w-10 place-items-center rounded-xl text-ink transition-colors hover:bg-cream"
+        >
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </header>
+
+      {/* Mobile drawer */}
+      {open && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Scrim */}
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+            className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]"
+          />
+          {/* Panel */}
+          <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[85%] flex-col border-r border-line bg-surface shadow-2xl">
+            <div className="flex items-center justify-between border-b border-line px-5 py-4">
+              <Logo />
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="grid h-9 w-9 place-items-center rounded-lg text-muted transition-colors hover:bg-cream hover:text-ink"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <SidebarBody
+              pathname={pathname}
+              isPro={isPro}
+              userEmail={userEmail}
+              onNavigate={() => setOpen(false)}
+              onSignOut={handleSignOut}
+            />
+          </aside>
+        </div>
+      )}
+
+      {/* Desktop sidebar */}
+      <aside className="hidden w-64 flex-col border-r border-line bg-surface lg:flex">
+        {/* Logo */}
+        <div className="border-b border-line px-5 py-5">
+          <Logo />
+          <p className="mt-1.5 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-faint">GST Invoicing</p>
+        </div>
+
+        <SidebarBody
+          pathname={pathname}
+          isPro={isPro}
+          userEmail={userEmail}
+          onNavigate={() => {}}
+          onSignOut={handleSignOut}
+        />
+      </aside>
+    </>
   )
 }

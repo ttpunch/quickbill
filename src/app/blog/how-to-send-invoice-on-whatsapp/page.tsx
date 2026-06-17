@@ -18,7 +18,7 @@ export default function Page() {
 
       <div className="space-y-6 text-sm leading-relaxed text-muted">
         <p>
-          Most Indian freelancers already use WhatsApp to communicate with clients. Sending your <strong className="text-ink">invoice on WhatsApp</strong> is the fastest way to get paid — your client sees it immediately, and with a UPI link on the invoice, they can pay in seconds without even switching apps. Here's exactly how to do it.
+          Most Indian freelancers already use WhatsApp to communicate with clients. Sending your <strong className="text-ink">invoice on WhatsApp</strong> is the fastest way to get paid — your client sees it immediately, and with a UPI link on the invoice, they can pay in seconds without even switching apps. Here’s exactly how to do it.
         </p>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Why WhatsApp is the best invoice delivery method in India</h2>
@@ -78,7 +78,7 @@ export default function Page() {
         <p>When a client taps this link, their UPI app opens with your UPI ID, your business name, and the exact invoice amount (₹29,500 in this example) pre-filled. They just enter their PIN and pay.</p>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">WhatsApp message template to send with your invoice</h2>
-        <p>Here's a professional message template you can customise:</p>
+        <p>Here’s a professional message template you can customise:</p>
         <div className="card p-4 bg-paper-deep text-ink space-y-2">
           <p>Hi [Client Name],</p>
           <p>Please find the invoice for [Project Name] attached.</p>
@@ -91,8 +91,8 @@ export default function Page() {
         <ul className="list-disc pl-5 space-y-2">
           <li><strong className="text-ink">Send the invoice the same day you complete the work</strong> — payment probability drops significantly after 48 hours</li>
           <li><strong className="text-ink">Follow up with a reminder after 3 days</strong> — a short, polite WhatsApp message is less intrusive than email</li>
-          <li><strong className="text-ink">Add a due date on every invoice</strong> — clients pay faster when there's a specific date</li>
-          <li><strong className="text-ink">Keep the PDF under 5MB</strong> — large PDFs don't open on older phones; QuikBil optimises PDF size automatically</li>
+          <li><strong className="text-ink">Add a due date on every invoice</strong> — clients pay faster when there’s a specific date</li>
+          <li><strong className="text-ink">Keep the PDF under 5MB</strong> — large PDFs don’t open on older phones; QuikBil optimises PDF size automatically</li>
           <li><strong className="text-ink">Use a professional business name</strong> — it appears on the UPI payment screen, which builds client trust</li>
         </ul>
 

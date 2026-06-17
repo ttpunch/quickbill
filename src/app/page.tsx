@@ -86,10 +86,10 @@ export default async function HomePage() {
 
       {/* Nav */}
       <nav className="sticky top-0 z-30 border-b border-line bg-paper/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-6">
           <Wordmark />
-          <div className="flex items-center gap-5">
-            <Link href="/login" className="text-sm font-medium text-muted transition-colors hover:text-ink">Log in</Link>
+          <div className="flex items-center gap-4 sm:gap-5">
+            <Link href="/login" className="hidden text-sm font-medium text-muted transition-colors hover:text-ink sm:inline">Log in</Link>
             <Link href="/login" className="btn-primary">Get started free</Link>
           </div>
         </div>

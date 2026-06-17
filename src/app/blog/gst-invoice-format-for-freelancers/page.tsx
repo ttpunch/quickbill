@@ -18,7 +18,7 @@ export default function Page() {
 
       <div className="space-y-6 text-sm leading-relaxed text-muted">
         <p>
-          The <strong className="text-ink">GST invoice format for freelancers</strong> in India has specific requirements under the CGST Act 2017. Whether you're a designer, developer, writer, or consultant, you must issue a GST-compliant invoice for every client billing if you're registered under GST. This complete guide covers every field, common SAC codes, and how to generate your invoice in under a minute.
+          The <strong className="text-ink">GST invoice format for freelancers</strong> in India has specific requirements under the CGST Act 2017. Whether you’re a designer, developer, writer, or consultant, you must issue a GST-compliant invoice for every client billing if you’re registered under GST. This complete guide covers every field, common SAC codes, and how to generate your invoice in under a minute.
         </p>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Who needs to issue a GST invoice?</h2>
@@ -127,7 +127,7 @@ export default function Page() {
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Digital vs physical GST invoice</h2>
         <p>
-          A GST invoice can be issued digitally — as a PDF sent by email or WhatsApp. There is no requirement to print it. The invoice must include a digital signature or the supplier's name printed in lieu of a signature.
+          A GST invoice can be issued digitally — as a PDF sent by email or WhatsApp. There is no requirement to print it. The invoice must include a digital signature or the supplier’s name printed in lieu of a signature.
         </p>
 
         <h2 className="font-display text-2xl font-semibold text-ink pt-4">Generate your GST invoice in 60 seconds</h2>
