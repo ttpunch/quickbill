@@ -132,15 +132,21 @@ export async function createSubscriptionOrder(planId: string) {
 
   const razorpay = getRazorpay()
 
-  const order = await razorpay.orders.create({
-    amount: plan.price_inr_paise,
-    currency: 'INR',
-    receipt: `sub_${user.id.slice(0, 8)}_${Date.now()}`,
-    notes: {
-      user_id: user.id,
-      plan_id: planId,
-    },
-  })
+  let order: Awaited<ReturnType<typeof razorpay.orders.create>>
+  try {
+    order = await razorpay.orders.create({
+      amount: plan.price_inr_paise,
+      currency: 'INR',
+      receipt: `sub_${user.id.slice(0, 8)}_${Date.now()}`,
+      notes: {
+        user_id: user.id,
+        plan_id: planId,
+      },
+    })
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : JSON.stringify(err)
+    return { error: `Payment gateway error: ${msg}` }
+  }
 
   return { orderId: order.id, amount: plan.price_inr_paise, planName: plan.name, planId }
 }
