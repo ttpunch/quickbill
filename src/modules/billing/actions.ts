@@ -93,13 +93,14 @@ export async function getBillingHistory() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return []
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('payment_events')
     .select('id, event_type, amount_inr_paise, gateway, gateway_event_id, created_at')
     .eq('user_id', user.id)
     .eq('event_type', 'payment.captured')
     .order('created_at', { ascending: false })
 
+  if (error) return []
   return data ?? []
 }
 
@@ -113,6 +114,10 @@ export async function getPlans() {
 }
 
 export async function createSubscriptionOrder(planId: string) {
+  if (!process.env.RAZORPAY_KEY_SECRET || !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
+    return { error: 'Payments are not configured yet. Please contact support.' }
+  }
+
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
