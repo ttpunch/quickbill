@@ -130,10 +130,9 @@ export async function createSubscriptionOrder(planId: string) {
 
   if (!plan) return { error: 'Plan not found' }
 
-  const razorpay = getRazorpay()
-
-  let order: Awaited<ReturnType<typeof razorpay.orders.create>>
+  let order: { id: string }
   try {
+    const razorpay = getRazorpay()
     order = await razorpay.orders.create({
       amount: plan.price_inr_paise,
       currency: 'INR',
@@ -142,9 +141,13 @@ export async function createSubscriptionOrder(planId: string) {
         user_id: user.id,
         plan_id: planId,
       },
-    })
+    }) as { id: string }
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : JSON.stringify(err)
+    if (typeof err === 'object' && err !== null && 'error' in err) {
+      const rzpErr = err as { error: { description?: string } }
+      return { error: rzpErr.error.description ?? 'Payment gateway error' }
+    }
+    const msg = err instanceof Error ? err.message : String(err)
     return { error: `Payment gateway error: ${msg}` }
   }
 
