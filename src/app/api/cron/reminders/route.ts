@@ -7,8 +7,6 @@ import type { Invoice } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 // Days an invoice must be overdue / idle before the first reminder, and the
 // minimum gap between reminders so clients aren't spammed.
 const REMINDER_GAP_DAYS = 3
@@ -26,6 +24,7 @@ export async function GET(req: Request) {
     )
   }
 
+  const resend = new Resend(process.env.RESEND_API_KEY)
   const supabase = createServiceClient()
   const now = Date.now()
   const gapMs = REMINDER_GAP_DAYS * 24 * 60 * 60 * 1000
