@@ -9,10 +9,12 @@ export function InvoiceEmail({
   invoice,
   businessName,
   upiId,
+  reminder = false,
 }: {
   invoice: Invoice
   businessName?: string | null
   upiId?: string | null
+  reminder?: boolean
 }) {
   return (
     <Html>
@@ -24,7 +26,9 @@ export function InvoiceEmail({
             <Heading style={{ color: '#ffffff', margin: 0, fontSize: 22 }}>
               {businessName || 'QuickBill'}
             </Heading>
-            <Text style={{ color: '#c7d2fe', margin: '4px 0 0', fontSize: 13 }}>GST Invoice</Text>
+            <Text style={{ color: '#c7d2fe', margin: '4px 0 0', fontSize: 13 }}>
+              {reminder ? 'Payment Reminder' : 'GST Invoice'}
+            </Text>
           </Section>
 
           {/* Body */}
@@ -33,7 +37,11 @@ export function InvoiceEmail({
               Hi {invoice.client_name},
             </Text>
             <Text style={{ fontSize: 14, color: '#6b7280' }}>
-              Please find your invoice <strong style={{ color: '#1f2937' }}>{invoice.invoice_number}</strong> from {businessName || 'QuickBill'}.
+              {reminder ? (
+                <>This is a friendly reminder that invoice <strong style={{ color: '#1f2937' }}>{invoice.invoice_number}</strong> from {businessName || 'QuickBill'} is still pending payment.</>
+              ) : (
+                <>Please find your invoice <strong style={{ color: '#1f2937' }}>{invoice.invoice_number}</strong> from {businessName || 'QuickBill'}.</>
+              )}
             </Text>
 
             {/* Amount box */}

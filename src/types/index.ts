@@ -26,6 +26,8 @@ export interface Invoice {
   paid_at: string | null
   notes: string | null
   created_at: string
+  last_reminder_sent_at?: string | null
+  reminder_count?: number
   invoice_items?: InvoiceItem[]
 }
 

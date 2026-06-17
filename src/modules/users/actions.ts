@@ -38,6 +38,47 @@ export async function getUserProfile() {
   return data
 }
 
+const onboardingSchema = z.object({
+  business_name: z.string().min(1, 'Business name is required').max(200),
+  gst_number: z.string().regex(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/, 'Invalid GSTIN format').optional().or(z.literal('')),
+  upi_id: z.string().max(100).optional(),
+})
+
+export async function completeOnboarding(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Unauthorized' }
+
+  const parsed = onboardingSchema.safeParse({
+    business_name: formData.get('business_name') || '',
+    gst_number: formData.get('gst_number') || '',
+    upi_id: formData.get('upi_id') || undefined,
+  })
+
+  if (!parsed.success) return { error: parsed.error.issues[0].message }
+
+  const { error } = await supabase
+    .from('users')
+    .update({
+      business_name: parsed.data.business_name,
+      gst_number: parsed.data.gst_number || null,
+      upi_id: parsed.data.upi_id || null,
+      onboarded_at: new Date().toISOString(),
+    })
+    .eq('id', user.id)
+
+  if (error) return { error: error.message }
+
+  await supabase.from('audit_logs').insert({
+    actor_id: user.id,
+    action: 'user.onboarded',
+    resource: 'user',
+    resource_id: user.id,
+  })
+
+  return { success: true }
+}
+
 const profileSchema = z.object({
   name: z.string().max(100).optional(),
   business_name: z.string().max(200).optional(),

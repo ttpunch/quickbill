@@ -3,6 +3,7 @@ import { formatInr } from '@/modules/invoices/schema'
 import { notFound } from 'next/navigation'
 import InvoiceDetailActions from '@/components/invoice/InvoiceDetailActions'
 import SendEmailButton from '@/components/invoice/SendEmailButton'
+import SendReminderButton from '@/components/invoice/SendReminderButton'
 
 const statusColors: Record<string, string> = {
   paid: 'bg-paid-soft text-paid',
@@ -132,6 +133,13 @@ export default async function InvoiceDetailPage({ params }: { params: Promise<{ 
         </a>
 
         <SendEmailButton invoiceId={invoice.id} clientEmail={invoice.client_email} />
+        {invoice.status !== 'paid' && (
+          <SendReminderButton
+            invoiceId={invoice.id}
+            clientEmail={invoice.client_email}
+            lastSentAt={invoice.last_reminder_sent_at ?? null}
+          />
+        )}
         <InvoiceDetailActions invoice={invoice} />
       </div>
     </div>

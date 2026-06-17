@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createInvoiceSchema, calcGst } from './schema'
 import type { CreateInvoiceInput } from './schema'
 import type { Invoice } from '@/types'
+import { saveClientFromInvoice } from '@/modules/clients/actions'
 import { revalidatePath } from 'next/cache'
 
 async function getAuthUser() {
@@ -122,6 +123,13 @@ export async function createInvoice(input: CreateInvoiceInput): Promise<{ id: st
     .from('users')
     .update({ invoice_count: invoiceCount + 1 })
     .eq('id', user.id)
+
+  // Save / refresh this client for next time
+  await saveClientFromInvoice({
+    name: parsed.data.client_name,
+    email: parsed.data.client_email,
+    gstin: parsed.data.client_gstin,
+  })
 
   // Log to audit_logs
   await supabase.from('audit_logs').insert({

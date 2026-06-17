@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Sidebar from '@/components/layout/Sidebar'
-import { ensureUserProfile } from '@/modules/users/actions'
+import { ensureUserProfile, getUserProfile } from '@/modules/users/actions'
 import { getUserSubscription } from '@/modules/billing/actions'
 
 export default async function DashboardLayout({
@@ -15,6 +15,10 @@ export default async function DashboardLayout({
   if (!user) redirect('/login')
 
   await ensureUserProfile()
+
+  // First-login gate — send users to onboarding until they set up their business.
+  const profile = await getUserProfile()
+  if (!profile?.onboarded_at) redirect('/onboarding')
 
   // Same "Pro" definition the billing page uses — active + unexpired sub.
   const subscription = await getUserSubscription()
