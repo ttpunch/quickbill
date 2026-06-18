@@ -29,8 +29,9 @@ export async function proxy(request: NextRequest) {
 
   const { pathname } = request.nextUrl
 
-  // Protect all dashboard routes
-  if (pathname.startsWith('/dashboard') && !user) {
+  // Protect all dashboard + admin routes (the /admin layout additionally
+  // enforces the email allowlist — this just stops anonymous requests early)
+  if ((pathname.startsWith('/dashboard') || pathname.startsWith('/admin')) && !user) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
