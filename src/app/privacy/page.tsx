@@ -25,9 +25,6 @@ export default function PrivacyPage() {
 
         {/*
           ⚖️ LAWYER REVIEW RECOMMENDED before relying on this page.
-          PLACEHOLDERS to fill in before going live:
-            • [LEGAL PROVIDER]  — your legal identity (e.g. "Vinod Kumar, sole
-              proprietor trading as QuikBil") wherever it appears below.
           This draft is written to be ACCURATE to what the app actually does;
           it is not a guarantee of full DPDP compliance.
         */}
@@ -35,7 +32,7 @@ export default function PrivacyPage() {
         <div className="max-w-none space-y-7 text-sm leading-relaxed text-muted">
           <section>
             <h2 className="mb-2 font-display text-lg font-semibold text-ink">1. Who We Are</h2>
-            <p>QuickBill (the &ldquo;Service&rdquo;, available at quikbil.com) is operated by <span className="font-medium text-ink">[LEGAL PROVIDER]</span> (&ldquo;we&rdquo;, &ldquo;us&rdquo;). For the purposes of the Digital Personal Data Protection Act 2023 (&ldquo;DPDP Act&rdquo;), we act as the data fiduciary for the personal data described below. You can reach us at <a href="mailto:privacy@quikbil.com" className="font-medium text-brand hover:text-brand-700">privacy@quikbil.com</a>.</p>
+            <p>QuickBill (the &ldquo;Service&rdquo;, available at quikbil.com) is operated by <span className="font-medium text-ink">Vinod Kumar, sole proprietor trading as QuikBil</span> (&ldquo;we&rdquo;, &ldquo;us&rdquo;). For the purposes of the Digital Personal Data Protection Act 2023 (&ldquo;DPDP Act&rdquo;), we act as the data fiduciary for the personal data described below. You can reach us at <a href="mailto:privacy@quikbil.com" className="font-medium text-brand hover:text-brand-700">privacy@quikbil.com</a>.</p>
           </section>
 
           <section>

@@ -25,10 +25,6 @@ export default function TermsPage() {
 
         {/*
           ⚖️ LAWYER REVIEW RECOMMENDED before relying on this page.
-          PLACEHOLDERS to fill in before going live:
-            • [LEGAL PROVIDER]   — your legal identity (e.g. "Vinod Kumar, sole
-              proprietor trading as QuikBil").
-            • [CITY], India      — the jurisdiction for disputes (§11).
           Sections 8 (liability) and 11 (governing law) in particular should be
           checked by a lawyer — limitation-of-liability is only enforceable to the
           extent local law allows.
@@ -37,7 +33,7 @@ export default function TermsPage() {
         <div className="max-w-none space-y-7 text-sm leading-relaxed text-muted">
           <section>
             <h2 className="mb-2 font-display text-lg font-semibold text-ink">1. Service</h2>
-            <p>QuickBill (the &ldquo;Service&rdquo;, at quikbil.com) is an online GST invoice generation service for Indian freelancers and small businesses, operated by <span className="font-medium text-ink">[LEGAL PROVIDER]</span> (&ldquo;we&rdquo;, &ldquo;us&rdquo;). By creating an account or using the Service, you agree to these terms.</p>
+            <p>QuickBill (the &ldquo;Service&rdquo;, at quikbil.com) is an online GST invoice generation service for Indian freelancers and small businesses, operated by <span className="font-medium text-ink">Vinod Kumar, sole proprietor trading as QuikBil</span> (&ldquo;we&rdquo;, &ldquo;us&rdquo;). By creating an account or using the Service, you agree to these terms.</p>
           </section>
 
           <section>
@@ -87,7 +83,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="mb-2 font-display text-lg font-semibold text-ink">11. Governing Law</h2>
-            <p>These terms are governed by the laws of India, and disputes are subject to the courts of <span className="font-medium text-ink">[CITY], India</span>.</p>
+            <p>These terms are governed by the laws of India, and disputes are subject to the courts of <span className="font-medium text-ink">Haridwar, India</span>.</p>
           </section>
 
           <section>
