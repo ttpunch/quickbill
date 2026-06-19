@@ -5,6 +5,7 @@ import { createInvoiceSchema, calcGst } from './schema'
 import type { CreateInvoiceInput } from './schema'
 import type { Invoice } from '@/types'
 import { saveClientFromInvoice } from '@/modules/clients/actions'
+import { isRazorpayTestMode } from '@/lib/razorpay-mode'
 import { revalidatePath } from 'next/cache'
 
 async function getAuthUser() {
@@ -65,8 +66,15 @@ export async function createInvoice(input: CreateInvoiceInput): Promise<{ id: st
     .eq('status', 'active')
     .single()
 
-  const invoiceLimit = (subData as unknown as { subscription_plans: { invoice_limit: number | null } } | null)
+  const baseLimit = (subData as unknown as { subscription_plans: { invoice_limit: number | null } } | null)
     ?.subscription_plans?.invoice_limit ?? 5
+
+  // During the beta (Razorpay test mode) there is no way to upgrade, so the
+  // free tier is uncapped — everyone gets unlimited invoices until payments go
+  // live. This reverts to the plan's real limit automatically once live keys
+  // are configured. See supabase/go-live-reset.sql for the one-time invoice_count
+  // reset to run when switching to live mode.
+  const invoiceLimit = isRazorpayTestMode ? null : baseLimit
 
   const invoiceCount = userData?.invoice_count ?? 0
   if (invoiceLimit !== null && invoiceCount >= invoiceLimit) {
