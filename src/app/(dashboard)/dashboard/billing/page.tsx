@@ -1,4 +1,5 @@
 import { getUserSubscription, getPlans, getBillingHistory } from '@/modules/billing/actions'
+import { isRazorpayTestMode } from '@/lib/razorpay-mode'
 import BillingClient from './BillingClient'
 import SubscriptionControls from './SubscriptionControls'
 
@@ -54,10 +55,33 @@ export default async function BillingPage() {
       </div>
 
       {!isPro && (
-        <>
-          <p className="kicker mb-4">Upgrade to Pro</p>
-          <BillingClient plans={plans} />
-        </>
+        isRazorpayTestMode ? (
+          <div className="card overflow-hidden p-6">
+            <div className="mb-3 flex items-center gap-2">
+              <span className="badge bg-gold-soft text-gold">★ Launching soon</span>
+            </div>
+            <p className="font-display text-xl font-semibold text-ink">Pro is launching soon</p>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">
+              We&apos;re putting the finishing touches on payments. For now, QuickBill is free —
+              5 invoices a month, on us. Pro (unlimited invoices, no watermark, UPI payment links
+              &amp; email-to-client) opens up shortly.
+            </p>
+            <div className="mt-5 grid gap-2 sm:grid-cols-2">
+              {['Unlimited invoices', 'No watermark on PDFs', 'UPI payment links', 'Email invoices to clients'].map((f) => (
+                <div key={f} className="flex items-center gap-2 text-sm text-muted">
+                  <svg className="h-4 w-4 shrink-0 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                  {f}
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 font-mono text-xs text-faint">Pro pricing will be ₹299/mo · ₹2,499/yr when it goes live.</p>
+          </div>
+        ) : (
+          <>
+            <p className="kicker mb-4">Upgrade to Pro</p>
+            <BillingClient plans={plans} />
+          </>
+        )
       )}
 
       {/* Billing history */}
