@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { SITE, FAQS } from '@/lib/site'
+import { isRazorpayTestMode } from '@/lib/razorpay-mode'
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -226,6 +227,11 @@ export default async function HomePage() {
         <div className="mb-12 text-center">
           <p className="kicker mb-3">Simple pricing</p>
           <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Start free. Upgrade when you grow.</h2>
+          {isRazorpayTestMode && (
+            <p className="mx-auto mt-4 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold-soft px-4 py-1.5 text-xs font-medium text-gold">
+              <span aria-hidden>★</span> Pro is launching soon — start free today, no card needed
+            </p>
+          )}
         </div>
         <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
           {plans.map((p) => (

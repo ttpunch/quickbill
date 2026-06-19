@@ -2,6 +2,7 @@
 
 import { createClient, createServiceClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
+import { isRazorpayTestMode } from '@/lib/razorpay-mode'
 import Razorpay from 'razorpay'
 
 function getRazorpay() {
@@ -114,6 +115,11 @@ export async function getPlans() {
 }
 
 export async function createSubscriptionOrder(planId: string) {
+  // Beta: payments stay disabled while Razorpay is in test mode. This guard
+  // lifts automatically once live keys are configured (isRazorpayTestMode).
+  if (isRazorpayTestMode) {
+    return { error: 'Pro plans are launching soon — payments aren’t live yet.' }
+  }
   if (!process.env.RAZORPAY_KEY_SECRET || !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
     return { error: 'Payments are not configured yet. Please contact support.' }
   }
@@ -165,6 +171,12 @@ export async function activateSubscriptionAfterPayment({
   razorpaySignature: string
   planId: string
 }) {
+  // Beta guard — refuse to activate Pro while in test mode, even if a request
+  // reaches here directly (e.g. with Razorpay test cards).
+  if (isRazorpayTestMode) {
+    return { error: 'Pro plans are launching soon — payments aren’t live yet.' }
+  }
+
   const supabase = await createClient()
   const adminSupabase = createServiceClient()
   const { data: { user } } = await supabase.auth.getUser()
